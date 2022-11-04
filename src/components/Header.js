@@ -1,12 +1,12 @@
-import React from 'react'
-import '../styles/header.css'
+import React from 'react';
+import '../styles/header.css';
 
 const Header = ({size}) => {
     return(
         <nav>
             <div className="nav_box">
                 <span className="my_store" >
-                    ShoppingMall
+                    I_STORE
                 </span>
                 <div className="hme" >
                     <p>HOME</p>
@@ -14,12 +14,12 @@ const Header = ({size}) => {
                 <div className="Addprdct" >
                     <p>ADD PRODUCT</p>
                 </div>
-                <div className="cart">
+                {/* <div className="cart">
                     <span>
                     <i className="fas fa-cart-plus"></i>
                     </span>
                     <span>{size}</span>
-                </div>
+                </div> */}
             </div>
         </nav>
     )
