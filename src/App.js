@@ -1,103 +1,51 @@
-// import logo from './logo.svg';
-import './App.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import IPhoneX from '/images/IPhoneX.PNG';
+import iPhone5 from './images/iPhone5.PNG';
+import iPhone9Plus from './images/iPhone9Plus.PNG';
+import Header from './components/Header'
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AddProduct from './pages/AddProduct';
-import Header from './components/Header';
-// import Button from './components/Button';
-import unoos from './images/unoos.PNG';
-import doos from './images/doos.PNG';
-import trees from './images/trees.PNG';
-
 
 function App() {
-  const [item, setItem] = useState({ image:"", title:"", Price:"", })
-  const [items, setItems] = useState([
-    {
-      image: unoos,
-      title: "Danger",//for iteration or looping
-      Price: "250frw",
-    },
-    {
-      image: doos,
-      title: "Fruits",// for iteration or looping
-      Price: "2500frw",
-    },
-    {
-      image: trees,
-      title: "Igicommando",//for iteraion or looping
-      Price: "500frw",
-    }
-  ])
-  const changeItem = (e) => {
-    setItem({ ...item, [e.target.value]: e.target.value });
-  }
-  const saveItem = () => {
-    setItems([...items, item])
-    setItem({image:"", title:"",Price:""})
+  const [item, setItem] = useState({ image: "", name: "", price: "" });
+  const [items, setItems] = useState([{
+    image: IPhoneX,
+    name: "IPhoneX",
+    price: "100$"
+  },
+  {
+    image: iPhone5,
+    name: "iPhone5",
+    price: "200$"
+  },
+  {
+    image: iPhone9Plus,
+    name: "iPhone9Plus",
+    price: "400$"
+  }]);
+
+  const changeProduct = (e) => {
+    setItems({ ...item, [e.target.name]: e.target.value })
+
   }
 
+  const addProduct = () => {
+    setItems([...items, item])
+    setItem({ image: "", name: "", price: "" })
+  }
   return (
     <>
-    <Header/>
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/AddProduct' element={<AddProduct/>}/>
-    </Routes>
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <ul className="list-group">
-            {
-              items.map(function (item, index) {
-                return (
-                  <li key={index} className="list-group-item">
-                    <div><img style={{ width: "150px", height: "50vh" }} src={item.image} /></div>
-                    <div>{item.title}</div>
-                    <div>{item.Price}</div>
-                  </li>
-                )
-              })
-            }
-
-          </ul>
-        </div>
-
-        <div>
-
-
-
-
-        </div>
-
-
-
-        <div className="col">
-          <div className="mb-3">
-            <label htmlFor="exampleFormControlInput1" className="form-label">Product Image</label>
-            <input value={item.image} onChange={changeItem} name="image" type="url" className="form-control" placeholder="Product Img"/>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleFormControlInput1" className="form-label">Product title</label>
-            <input value={item.title} onChange={changeItem} name="title" type="text" className="form-control" placeholder="Danger"/>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleFormControlInput1" className="form-label">Product Price</label>
-            <input value={item.Price} onChange={changeItem} name="Price"  type="number" className="form-control" placeholder="0frw"/>
-          </div>
-          <div className="mb4">
-            <button onClick={saveItem} className="btn">Save</button>
-          </div>
-
-          product tobe added {JSON.stringify(item)}
-
-        </div>
-      </div>
-    </div>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home items={items} />} />
+        <Route path='/AddProduct' element={<AddProduct addProduct={addProduct} changeProduct={changeProduct}/>} />
+      </Routes>
     </>
 
-  );
+  )
 }
+
 
 export default App;
 
